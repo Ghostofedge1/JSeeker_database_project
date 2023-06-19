@@ -28,7 +28,8 @@
 
 
 .nav-form{
-    -fx-background-color: linear-gradient( to bottom right ,#3966fa,#fd2e2e);
+-fx-background-color: linear-gradient( to bottom right ,#82c9d9,#52a8c2,#2695b3);
+/* #82c9d9, #52a8c2, #2695b3 */
 }
 
 .nav-btn{
@@ -55,9 +56,10 @@
     -fx-background-color:#fff;
     -fx-background-radius:8px;
 }
+
 .table-view{
     -fx-background-color:transparent;
-    -fx-border-color:linear-gradient(to bottom right, #3c59e9, #e92727);
+    -fx-background-color: linear-gradient(to bottom right, #82c9d9, #52a8c2,#2695b3);
     -fx-border-radius:5px;
     -fx-padding:0px;
 }
@@ -83,18 +85,18 @@
 
 .textfield{
     -fx-background-color:linear-gradient(to bottom, #efefef, #eee);
-    -fx-border-color:linear-gradient(to bottom right, #3c59e9, #e92727);
+    -fx-background-color: linear-gradient(to bottom right, #82c9d9, #52a8c2,#2695b3);
     -fx-border-width:.8px;
     -fx-font-family:"Tahoma";
     -fx-border-radius:4px;
 }
 .textfield:focused{
     -fx-border-width:1.8px;
-    -fx-background-color:#fff;
+    -fx-background-color: linear-gradient(to bottom right, #82c9d9, #52a8c2,#2695b3);
 }
 .search{
     -fx-background-color:transparent;
-    -fx-border-color:linear-gradient(to bottom right, #3c59e9, #e92727);
+    -fx-background-color: linear-gradient(to bottom right, #e3ebec, #52a8c2);
     -fx-border-radius:5px;
     -fx-font-size:14px;
     -fx-font-family:"Arial";

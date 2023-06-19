@@ -7,7 +7,7 @@
     -fx-background-color: #e33d3d;
 }
 .left_side{
-    -fx-background-color: linear-gradient( to bottom right ,#3966fa,#fd2e2e);
+    -fx-background-color: linear-gradient(to bottom right, #82c9d9, #52a8c2,#2695b3);
     -fx-border-color: #0000;
     -fx-border-width: .5px .0px .5px .5px;
 }
@@ -17,7 +17,7 @@
     -fx-border-color: #0000;
 }
 .text_filed{
-    -fx-background-color: linear-gradient( to bottom right ,#f7f7f7,#f74f4f);
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #52a8c2);
     -fx-font-family: Arial;
    -fx-font-size: 15px;
    -fx-border-width: 1px;
@@ -29,7 +29,7 @@
     -fx-border-color: rgb(189, 176, 176);
 }
 .login_btn{
-    -fx-background-color: linear-gradient( to bottom right ,#3966fa,#fd2e2e);
+    -fx-background-color: linear-gradient(to bottom right, #82c9d9, #52a8c2,#2695b3);
     -fx-font-family: verdana;
    -fx-font-size: 20px;
    -fx-border-radius: 5px;
@@ -37,7 +37,7 @@
    -fx--webkit-text-fill-color: #f7f7f7;
 }
 .login_btn:hover{
-    -fx-background-color: linear-gradient( to bottom right ,#587efa,#ff5252);
+    -fx-background-color: linear-gradient(to bottom right, #82c9d9, #52a8c2,#2695b3);
 }
 
 

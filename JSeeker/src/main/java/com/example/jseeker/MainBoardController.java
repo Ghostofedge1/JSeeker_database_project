@@ -2,6 +2,7 @@ package com.example.jseeker;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,6 +30,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class MainBoardController {
+
+    // page 1 components
     @FXML
     private Button logoutbtn;
 
@@ -79,6 +82,48 @@ public class MainBoardController {
     @FXML
     private Button submitbtn;
     private Image image;
+
+    /////////////////////////////////////////
+
+    //page 2 components
+    @FXML
+    private TableColumn<ApplicationStatusClass, String> App_company_name_col;
+
+    @FXML
+    private TextArea App_job_discreption;
+
+    @FXML
+    private TableColumn<ApplicationStatusClass, String> App_job_title_col;
+
+    @FXML
+    private TableColumn<ApplicationStatusClass, String> App_job_type_col;
+
+    @FXML
+    private TableColumn<ApplicationStatusClass, String> App_status_col;
+    @FXML
+    private TableView<ApplicationStatusClass> applications_table;
+    @FXML
+    private TableColumn<ApplicationStatusClass, String> sent_date_col;
+
+///////////////////////////////////////////////////////////
+    //switch buttons
+    @FXML
+    private Button Application_btn;
+    @FXML
+    private Button Home_btn;
+    @FXML
+    private Button Settings_btn;
+
+
+    /////////////////////////////////
+    // pages anchor
+
+    @FXML
+    private AnchorPane page1;
+
+    @FXML
+    private AnchorPane page2;
+///////////////////////////////////////////////////////
     private Connection conn;
     private PreparedStatement st;
     private ResultSet rs;
@@ -146,7 +191,119 @@ public class MainBoardController {
 //        jobopeningstable.setItems(joblist);
 //
 //    }
+public void switchForm(ActionEvent event) throws SQLException {
 
+    if (event.getSource() == Home_btn) {
+        page1.setVisible(true);
+        page2.setVisible(false);
+
+        Home_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3a4368, #28966c);");
+        Application_btn.setStyle("-fx-background-color:transparent");
+
+        try {
+            ShowList_JobOpeningData();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+//
+//        homeTotalEmployees();
+//        homeEmployeeTotalPresent();
+//        homeTotalInactive();
+//        homeChart();
+
+    } else if (event.getSource() == Application_btn) {
+        page1.setVisible(false);
+        page2.setVisible(true);
+//        salary_form.setVisible(false);
+
+        Application_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3a4368, #28966c);");
+        Home_btn.setStyle("-fx-background-color:transparent");
+//        salary_btn.setStyle("-fx-background-color:transparent");
+ShowList_Applicationstatus();
+//        addEmployeeGendernList();
+//        addEmployeePositionList();
+//        addEmployeeSearch();
+
+//    } else if (event.getSource() == salary_btn) {
+//        home_form.setVisible(false);
+//        addEmployee_form.setVisible(false);
+//        salary_form.setVisible(true);
+//
+//        salary_btn.setStyle("-fx-background-color:linear-gradient(to bottom right, #3a4368, #28966c);");
+//        addEmployee_btn.setStyle("-fx-background-color:transparent");
+//        home_btn.setStyle("-fx-background-color:transparent");
+//
+//        salaryShowListData();
+//
+    }
+
+}
+public void showApplication_jobdescription() {
+    ApplicationStatusClass jobD = applications_table.getSelectionModel().getSelectedItem();
+    int num = applications_table.getSelectionModel().getSelectedIndex();
+
+    if ((num - 1) < -1) {
+        return;
+    }
+
+
+    App_job_discreption.setText(jobD.getDescription());
+
+}
+
+    private ObservableList<ApplicationStatusClass> addAppstatus;
+    public void ShowList_Applicationstatus() throws SQLException {
+        addAppstatus = list_Applicationstatus();
+        loadApplicationStatus();
+        applications_table.setItems(addAppstatus);
+
+    }
+public void loadApplicationStatus() {
+    Map<TableColumn<ApplicationStatusClass, ?>, String> columnMappings = new HashMap<>();
+
+    columnMappings.put(App_status_col, "App_status");
+    columnMappings.put(sent_date_col, "Sent_Date");
+    columnMappings.put(App_job_title_col, "Jobtitle");
+    columnMappings.put(App_company_name_col, "Combany_Name");
+    columnMappings.put(App_job_type_col, "Type");
+
+    for (TableColumn<ApplicationStatusClass, ?> column : columnMappings.keySet()) {
+        column.setCellValueFactory(new PropertyValueFactory<>(columnMappings.get(column)));
+    }
+}
+public ObservableList<ApplicationStatusClass> list_Applicationstatus() throws SQLException {
+    ObservableList<ApplicationStatusClass> listData = FXCollections.observableArrayList();
+    String query = "select a.ID,a.Job_Opening_ID,a.Application_Status,a.Sent_Date,c.Company_Name\n" +
+            ", j.Job_Tilte,j.Job_Description,j.Job_Type\n" +
+            "from Application a,JobOpening j ,Company c\n" +
+            "where a.Job_Opening_ID=j.Job_Opening_ID and j.Company_ID=c.Company_ID\n" +
+            "and ID=?" ;
+    conn = MSConnection.connect();
+    try {
+        st = conn.prepareStatement(query);
+        st.setInt(1,UserData.id);
+        rs = st.executeQuery();
+        ApplicationStatusClass Appstatus;
+        while (rs.next()) {
+            Appstatus = new ApplicationStatusClass(
+                    rs.getInt("ID"),
+                    rs.getInt("Job_Opening_ID"),
+                    rs.getString("Application_Status"),
+                    rs.getDate("Sent_Date"),
+                    rs.getString("Company_Name"),
+                    rs.getString("Job_Tilte"),
+                    rs.getString("Job_Description"),
+                    rs.getString("Job_Type")
+
+            );
+            // System.out.println(rs.getString(2)+" "+rs.getString(1)+" "+rs.getString(3));
+            listData.add(Appstatus);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return listData;
+}
     public void importCVImage() {
 
         FileChooser open = new FileChooser();
@@ -230,12 +387,17 @@ public void loadJobOpeningsData() {
 }
     public ObservableList<jobOpeningData> list_JobOpeningData() throws SQLException {
         ObservableList<jobOpeningData> listData = FXCollections.observableArrayList();
-        String query = "SELECT JobOpening.Job_Opening_ID, Company.Company_Name, JobOpening.Job_Tilte, " +
-                "JobOpening.Job_Type, JobOpening.Salary, JobOpening.Deadline ,JobOpening.Job_Description" +
-                " FROM JobOpening INNER JOIN Company ON JobOpening.Company_ID = Company.Company_ID" ;
+        String query = "select DISTINCT j.Deadline,j.Job_Description,j.Job_Opening_ID,\n" +
+                "j.Job_Tilte,j.Job_Type,j.Salary,c.Company_Name\n" +
+                "from Company c,Member m,JobOpening j  \n" +
+                ",MemberIntersets mi,JobOpeningInterset ji\n" +
+                "where  j.Company_ID=c.Company_ID and \n" +
+                "m.ID=mi.ID and j.Job_Opening_ID=ji.Job_Opening_ID and \n" +
+                "mi.Interset_ID=ji.Interset_ID and m.id=?" ;
                 conn = MSConnection.connect();
         try {
             st = conn.prepareStatement(query);
+            st.setInt(1,UserData.id);
             rs = st.executeQuery();
             jobOpeningData JobOpeningD;
             while (rs.next()) {
@@ -249,7 +411,7 @@ public void loadJobOpeningsData() {
                         rs.getDate("Deadline")
 
                 );
-                System.out.println(rs.getString(2)+" "+rs.getString(1)+" "+rs.getString(3));
+               // System.out.println(rs.getString(2)+" "+rs.getString(1)+" "+rs.getString(3));
                 listData.add(JobOpeningD);
             }
         } catch (Exception e) {
@@ -337,6 +499,8 @@ public void loadJobOpeningsData() {
 
     public void initialize() throws SQLException {
         // TODO
+
+         ShowList_Applicationstatus();
 
          ShowList_JobOpeningData();
          displayusername();
