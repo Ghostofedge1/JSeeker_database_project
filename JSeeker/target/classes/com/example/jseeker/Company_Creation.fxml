@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane fx:id="Company_reg_form" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="754.0" styleClass="bg_form" stylesheets="@Signup_Design.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jseeker.CompanyCreationController">
+   <children>
+      <AnchorPane layoutX="23.0" layoutY="35.0" prefHeight="572.0" prefWidth="708.0" stylesheets="@Signup_Design.css">
+         <styleClass>
+            <String fx:value="white-bg" />
+            <String fx:value="shadow" />
+         </styleClass>
+         <children>
+            <AnchorPane prefHeight="76.0" prefWidth="198.0" styleClass="bg_form" stylesheets="@Signup_Design.css">
+               <children>
+                  <Text fill="WHITE" layoutX="11.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company Creation" wrappingWidth="235.13671875">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <TextField fx:id="Company_name_filed" layoutX="14.0" layoutY="131.0" prefHeight="32.0" prefWidth="296.0" promptText="Company name" />
+            <TextField fx:id="URL_field" layoutX="14.0" layoutY="179.0" prefHeight="32.0" prefWidth="531.0" promptText="URL (if any)" />
+            <TextField fx:id="Indusrty_type" layoutX="14.0" layoutY="231.0" prefHeight="32.0" prefWidth="296.0" promptText="Industry  type" />
+            <AnchorPane layoutX="14.0" layoutY="286.0" prefHeight="199.0" prefWidth="215.0" stylesheets="@Signup_Design.css">
+               <children>
+                  <ImageView fx:id="Logoimage" fitHeight="199.0" fitWidth="215.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+               <styleClass>
+                  <String fx:value="shadow" />
+                  <String fx:value="white-bg" />
+               </styleClass>
+            </AnchorPane>
+            <Button layoutX="262.0" layoutY="347.0" mnemonicParsing="false" onAction="#importPicture" prefHeight="39.0" prefWidth="100.0" styleClass="fill-btn" stylesheets="@Signup_Design.css" text="Import logo" />
+            <Button fx:id="Submit_btn" layoutX="20.0" layoutY="512.0" mnemonicParsing="false" onAction="#submit_btn" prefHeight="39.0" prefWidth="125.0" styleClass="fill-btn" stylesheets="@Signup_Design.css" text="Submit" />
+            <Button fx:id="Goback_btn" layoutX="588.0" layoutY="512.0" mnemonicParsing="false" onAction="#returntologin" prefHeight="32.0" prefWidth="100.0" styleClass="fill-btn" stylesheets="@Signup_Design.css" text="go back">
+               <graphic>
+                  <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em" />
+               </graphic>
+            </Button>
+            <TextField fx:id="Location_field" layoutX="354.0" layoutY="231.0" prefHeight="32.0" prefWidth="296.0" promptText="Location" />
+         </children>
+      </AnchorPane>
+      <Button layoutX="702.0" layoutY="2.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="54.0" styleClass="close" stylesheets="@Signup_Design.css" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+         <graphic>
+            <FontAwesomeIcon glyphName="CLOSE" />
+         </graphic>
+      </Button>
+      <Button layoutX="644.0" layoutY="2.0" mnemonicParsing="false" onAction="#minimize" prefHeight="25.0" prefWidth="54.0" styleClass="minimize" stylesheets="@Signup_Design.css">
+         <graphic>
+            <FontAwesomeIcon glyphName="MINUS" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

@@ -38,6 +38,29 @@ public class FirstController {
     private double x = 0;
     private double y = 0;
 
+
+
+    public void company_creation() throws IOException {
+        loginbtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("Company_Creation.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        root.setOnMousePressed((MouseEvent event) ->{
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+
+        root.setOnMouseDragged((MouseEvent event) ->{
+            stage.setX(event.getScreenX() - x);
+            stage.setY(event.getScreenY() - y);
+        });
+
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+
+        stage.setScene(scene);
+        stage.show();
+    }
     public void signup() throws IOException {
         loginbtn.getScene().getWindow().hide();
         Parent root = FXMLLoader.load(getClass().getResource("Signup_form.fxml"));
