@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,6 +37,28 @@ public class FirstController {
 
     private double x = 0;
     private double y = 0;
+
+    public void signup() throws IOException {
+        loginbtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("Signup_form.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        root.setOnMousePressed((MouseEvent event) ->{
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+
+        root.setOnMouseDragged((MouseEvent event) ->{
+            stage.setX(event.getScreenX() - x);
+            stage.setY(event.getScreenY() - y);
+        });
+
+        stage.initStyle(StageStyle.TRANSPARENT);
+
+
+        stage.setScene(scene);
+        stage.show();
+    }
     public void login(){
         String sql ="select * from Member where User_Type like 'jobseeker' and Email=? and Password= ?";
         conn=MSConnection.connect();

@@ -6,4 +6,5 @@ public class UserData {
     public static Integer id;
 
     public static String path;
+    public static String path2;
 }

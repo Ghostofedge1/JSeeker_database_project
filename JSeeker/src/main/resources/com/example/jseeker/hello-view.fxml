@@ -73,7 +73,7 @@
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Hyperlink layoutX="113.0" layoutY="471.0" text="Sign up" />
+                  <Hyperlink layoutX="113.0" layoutY="471.0" onAction="#signup" text="Sign up" />
                   <Hyperlink layoutX="85.0" layoutY="494.0" text="Company account" />
                </children>
             </AnchorPane>
